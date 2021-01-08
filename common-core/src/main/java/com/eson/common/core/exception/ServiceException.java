@@ -36,7 +36,7 @@ public class ServiceException extends BusinessException {
         return errorPlace;
     }
 
-    public ServiceException setErrorStack(String errorPlace) {
+    public ServiceException setErrorPlace(String errorPlace) {
         this.errorPlace = errorPlace;
         return this;
     }
