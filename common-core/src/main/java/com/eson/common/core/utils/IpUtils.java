@@ -10,7 +10,7 @@ import java.util.Enumeration;
  */
 public class IpUtils {
 
-    private static String getLocalIp() {
+    public static String getLocalIp() {
         try {
             Enumeration<NetworkInterface> faces = NetworkInterface.getNetworkInterfaces();
             while (faces.hasMoreElements()) {
