@@ -17,6 +17,5 @@
     <modules>
         <module>common-core</module>
         <module>common-web</module>
-        <module>common-dubbo</module>
     </modules>
 </project>
