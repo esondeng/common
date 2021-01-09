@@ -66,7 +66,6 @@ public class AppExceptionHandler {
             return logAndBuildResponse(bex);
         }
         else {
-            log.error("系统服务异常", e);
             return WebResponse.fail("系统服务异常，请稍后重试");
         }
     }
