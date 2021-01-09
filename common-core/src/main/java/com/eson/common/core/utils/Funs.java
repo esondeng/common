@@ -149,7 +149,7 @@ public class Funs {
 
     public static <T> boolean noneMatch(Collection<T> collection, Predicate<? super T> predicate) {
         if (CollectionUtils.isEmpty(collection)) {
-            return false;
+            return true;
         }
 
         return collection.stream()
