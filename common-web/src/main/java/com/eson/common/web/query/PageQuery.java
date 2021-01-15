@@ -7,13 +7,12 @@ import lombok.Setter;
  * @author dengxiaolin
  * @since 2021/01/07
  */
+@Getter
+@Setter
 public class PageQuery {
-    @Getter
-    @Setter
+
     protected Integer pageNum;
 
-    @Getter
-    @Setter
     protected Integer pageSize;
 
     public void valid() {
