@@ -31,7 +31,7 @@ public class Funs {
     }
 
 
-    public static <T, R, U, A> R map(Collection<T> collection,
+    public static <T, U, A, R> R map(Collection<T> collection,
                                      Function<? super T, ? extends U> mapper,
                                      Collector<? super U, A, R> collector) {
         if (CollectionUtils.isEmpty(collection)) {
