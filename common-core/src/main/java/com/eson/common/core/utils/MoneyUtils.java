@@ -29,12 +29,12 @@ public class MoneyUtils {
     }
 
     public static Double cent2Yuan(double money) {
-        return cent2Yuan(String.valueOf(money), 0.00d);
+        return cent2Yuan(String.valueOf(money));
     }
 
-    public static Double cent2Yuan(String money, final double defaultValue) {
-        if (money == null) {
-            return defaultValue;
+    private static Double cent2Yuan(String money) {
+        if (StringUtils.isBlank(money)) {
+            return 0D;
         }
         return new BigDecimal(money)
                 .divide(DEFAULT_DECIMAL, 2, RoundingMode.HALF_UP)
