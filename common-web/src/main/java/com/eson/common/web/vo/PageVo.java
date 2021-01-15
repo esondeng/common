@@ -30,6 +30,12 @@ public class PageVo<T> {
 
     private List<T> list;
 
+    public static <T> PageVo<T> of(PageQuery pageQuery) {
+        PageVo<T> emptyPage = new PageVo<>();
+        emptyPage.setPage(pageQuery, 0, Collections.emptyList());
+        return emptyPage;
+    }
+
 
     public void setPage(PageQuery pageQuery, int total) {
         this.total = total;
@@ -44,11 +50,5 @@ public class PageVo<T> {
         this.pageSize = pageQuery.getPageSize();
         this.list = list;
         this.totalNum = (int) Math.ceil((double) total / pageSize);
-    }
-
-    public static <T> PageVo<T> of(PageQuery pageQuery) {
-        PageVo<T> emptyPage = new PageVo<>();
-        emptyPage.setPage(pageQuery, 0, Collections.emptyList());
-        return emptyPage;
     }
 }
