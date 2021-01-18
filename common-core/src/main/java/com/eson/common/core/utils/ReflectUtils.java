@@ -16,26 +16,23 @@ public class ReflectUtils {
             catch (NoSuchFieldException e) {
             }
         }
-        return null;
+        throw new RuntimeException(Strings.of("there is not field named {}", fieldName));
     }
 
     public static Object getFieldValueByName(Object obj, String fieldName) {
         Field field = getFieldByName(obj, fieldName);
-        if (field != null) {
-            if (field.isAccessible()) {
+        if (field.isAccessible()) {
+            return getValue(obj, field);
+        }
+        else {
+            field.setAccessible(true);
+            try {
                 return getValue(obj, field);
             }
-            else {
-                field.setAccessible(true);
-                try {
-                    return getValue(obj, field);
-                }
-                finally {
-                    field.setAccessible(false);
-                }
+            finally {
+                field.setAccessible(false);
             }
         }
-        return null;
     }
 
     private static Object getValue(Object obj, Field field) {
