@@ -20,7 +20,7 @@ public class ValidatorUtils {
             .configure()
             .buildValidatorFactory();
 
-    public static Validator validator = factory.getValidator();
+    private static Validator validator = factory.getValidator();
 
     public static <T> void validate(T target, Class<?>... groups) {
         Set<ConstraintViolation<T>> violationSet = validator.validate(target, groups);
