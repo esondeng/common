@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Queue;
 
 import com.eson.common.core.constants.Constants;
-import com.eson.common.core.exception.BusinessException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -37,7 +36,7 @@ public class JsonUtils {
             return mapper.writeValueAsString(object);
         }
         catch (JsonProcessingException e) {
-            throw new BusinessException(e.getMessage(), e).setTrivial(true);
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -46,7 +45,7 @@ public class JsonUtils {
             return mapper.readValue(json, targetClass);
         }
         catch (Exception e) {
-            throw new BusinessException(e.getMessage(), e).setTrivial(true);
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -56,7 +55,7 @@ public class JsonUtils {
             return mapper.readValue(json, typeFactory.constructCollectionType(List.class, targetClass));
         }
         catch (Exception e) {
-            throw new BusinessException(e.getMessage(), e).setTrivial(true);
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -66,7 +65,7 @@ public class JsonUtils {
             return mapper.readValue(json, typeFactory.constructMapType(Map.class, keyClass, valueClass));
         }
         catch (Exception e) {
-            throw new BusinessException(e.getMessage(), e).setTrivial(true);
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -94,7 +93,7 @@ public class JsonUtils {
 
         }
         catch (IOException e) {
-            throw new BusinessException(e.getMessage(), e).setTrivial(true);
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -103,7 +102,7 @@ public class JsonUtils {
             return mapper.readTree(json);
         }
         catch (IOException e) {
-            throw new BusinessException(e.getMessage(), e).setTrivial(true);
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -119,7 +118,7 @@ public class JsonUtils {
             for (int i = 0; i < size; i++) {
                 JsonNode node = queue.poll();
                 if (node == MissingNode.getInstance()) {
-                    throw new BusinessException(Strings.of("path {} is invalid", jsonPath));
+                    throw new RuntimeException(Strings.of("path {} is invalid", jsonPath));
                 }
 
                 if (node.isObject()) {
