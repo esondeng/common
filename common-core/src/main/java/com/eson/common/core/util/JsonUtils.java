@@ -1,4 +1,4 @@
-package com.eson.common.core.utils;
+package com.eson.common.core.util;
 
 import java.io.IOException;
 import java.util.LinkedList;

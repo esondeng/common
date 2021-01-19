@@ -3,8 +3,8 @@ package com.eson.common.core.enums;
 import java.util.EnumSet;
 import java.util.Map;
 
-import com.eson.common.core.utils.Assert;
-import com.eson.common.core.utils.Funs;
+import com.eson.common.core.util.Assert;
+import com.eson.common.core.util.Funs;
 
 /**
  * @author dengxiaolin

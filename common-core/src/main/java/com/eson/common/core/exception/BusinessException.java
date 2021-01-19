@@ -1,7 +1,7 @@
 package com.eson.common.core.exception;
 
 import com.eson.common.core.constants.Constants;
-import com.eson.common.core.utils.Strings;
+import com.eson.common.core.util.Strings;
 
 /**
  * @author dengxiaolin

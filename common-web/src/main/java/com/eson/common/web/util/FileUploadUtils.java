@@ -1,4 +1,4 @@
-package com.eson.common.web.utils;
+package com.eson.common.web.util;
 
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -8,7 +8,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.eson.common.core.utils.Assert;
+import com.eson.common.core.util.Assert;
 
 import lombok.extern.slf4j.Slf4j;
 
