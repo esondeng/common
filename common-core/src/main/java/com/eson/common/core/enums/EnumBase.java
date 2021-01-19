@@ -1,10 +1,10 @@
 package com.eson.common.core.enums;
 
 import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.Map;
 
 import com.eson.common.core.utils.Assert;
+import com.eson.common.core.utils.Funs;
 
 /**
  * @author dengxiaolin
@@ -22,13 +22,11 @@ public interface EnumBase {
     }
 
     public static <E extends Enum<E> & EnumBase> E ofIdNullable(Class<E> type, int id) {
-        final EnumSet<E> values = EnumSet.allOf(type);
-        for (E t : values) {
-            if (t.id() == id) {
-                return t;
-            }
-        }
-        return null;
+        EnumSet<E> values = EnumSet.allOf(type);
+        return values.stream()
+                .filter(t -> t.id() == id)
+                .findFirst()
+                .orElse(null);
     }
 
     public static <E extends Enum<E> & EnumBase> E ofMessage(Class<E> type, String message) {
@@ -40,22 +38,16 @@ public interface EnumBase {
     public static <E extends Enum<E> & EnumBase> E ofMessageNullable(Class<E> type, String message) {
         Assert.throwIfBlank(message, "message must not be blank");
 
-        final EnumSet<E> values = EnumSet.allOf(type);
-        for (E t : values) {
-            if (t.message().equals(message)) {
-                return t;
-            }
-        }
-        return null;
+        EnumSet<E> values = EnumSet.allOf(type);
+        return values.stream()
+                .filter(t -> t.message().equals(message))
+                .findFirst()
+                .orElse(null);
     }
 
     public static <E extends Enum<E> & EnumBase> Map<Integer, String> enumToMap(Class<E> type) {
         EnumSet<E> values = EnumSet.allOf(type);
-        Map<Integer, String> map = new HashMap<>(8);
-        for (E t : values) {
-            map.put(t.id(), t.message());
-        }
-        return map;
+        return Funs.toMapQuietly(values, EnumBase::id, EnumBase::message);
     }
 
     public static <E extends Enum<E> & EnumBase> boolean hasId(Class<E> type, int id) {
