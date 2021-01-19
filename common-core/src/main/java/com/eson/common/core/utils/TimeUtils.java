@@ -93,15 +93,15 @@ public class TimeUtils {
         return MONTH_FORMATTER.format(date.toInstant());
     }
 
-    public static ZonedDateTime zonedDateTime(Date date) {
+    public static ZonedDateTime ofDate(Date date) {
         return date.toInstant().atZone(ZONE_ID_CN);
     }
 
-    public static ZonedDateTime zonedDateTimeOfMilli(long epochMilli) {
+    public static ZonedDateTime ofMilli(long epochMilli) {
         return Instant.ofEpochMilli(epochMilli).atZone(ZONE_ID_CN);
     }
 
-    public static ZonedDateTime zonedDateTimeOfSecond(long epochSecond) {
+    public static ZonedDateTime ofSecond(long epochSecond) {
         return Instant.ofEpochSecond(epochSecond).atZone(ZONE_ID_CN);
     }
 
