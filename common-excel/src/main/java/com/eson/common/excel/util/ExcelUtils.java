@@ -34,7 +34,7 @@ import com.eson.common.core.util.ValidatorUtils;
 import com.eson.common.excel.event.BaseExcelListener;
 import com.eson.common.excel.model.BaseRowModel;
 import com.eson.common.excel.param.SheetWriteParam;
-import com.eson.common.function.util.ThrowExecuteUtils;
+import com.eson.common.function.util.ThrowUtils;
 import com.google.common.collect.Lists;
 
 /**
@@ -91,10 +91,10 @@ public class ExcelUtils {
         String name = fileName.replaceAll(SPECIAL_CHAR, "") + ExcelTypeEnum.XLSX.getValue();
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.setHeader("Accept-Ranges", "bytes");
-        String fileNameParam = ThrowExecuteUtils.execute(() -> URLEncoder.encode(name, "UTF-8"));
+        String fileNameParam = ThrowUtils.execute(() -> URLEncoder.encode(name, "UTF-8"));
         response.setHeader("Content-Disposition", "attachment; filename=" + fileNameParam);
 
-        ServletOutputStream outputStream = ThrowExecuteUtils.execute(response::getOutputStream);
+        ServletOutputStream outputStream = ThrowUtils.execute(response::getOutputStream);
         ExcelWriter excelWriter = EasyExcel.write(outputStream).build();
 
         try {

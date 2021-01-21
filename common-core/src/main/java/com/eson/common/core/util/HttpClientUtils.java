@@ -3,7 +3,7 @@ package com.eson.common.core.util;
 import java.util.Collections;
 import java.util.Map;
 
-import com.eson.common.function.util.ThrowExecuteUtils;
+import com.eson.common.function.util.ThrowUtils;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -53,12 +53,12 @@ public class HttpClientUtils {
 
     private String execute(Request request) {
         Call call = OK_HTTP_CLIENT.newCall(request);
-        Response response = ThrowExecuteUtils.execute(call::execute);
+        Response response = ThrowUtils.execute(call::execute);
 
         if (response.isSuccessful()) {
             ResponseBody body = response.body();
             if (body != null) {
-                return ThrowExecuteUtils.execute(body::toString);
+                return ThrowUtils.execute(body::toString);
             }
             throw new RuntimeException("Http fail");
         }

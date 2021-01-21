@@ -7,7 +7,7 @@ import com.eson.common.function.ThrowRunnable;
  * @author dengxiaolin
  * @since 2021/01/21
  */
-public class ThrowExecuteUtils {
+public class ThrowUtils {
 
     public static <T> T execute(ThrowCallable<T> callable) {
         try {
