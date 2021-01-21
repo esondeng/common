@@ -1,5 +1,7 @@
 package com.eson.common.core.constants;
 
+import java.util.regex.Pattern;
+
 /**
  * @author dengxiaolin
  * @since 2021/01/07
@@ -15,6 +17,8 @@ public class Constants {
     public static final String AND = "&";
     public static final String EQUAL = "=";
     public static final String UTF8 = "UTF-8";
+
+    private static final Pattern DOCUMENT_PATTERN = Pattern.compile(".*\\.(pdf|pptx|docx|ppt|doc|xls|xlsx|zip)$");
 
     /**
      * 有效
