@@ -76,11 +76,15 @@ public class ExcelUtils {
         }
     }
 
-    public static <T extends BaseRowModel> void write(HttpServletResponse response, SheetWriteParam<T> writeParam, String fileName) {
+    public static <T extends BaseRowModel> void write(HttpServletResponse response,
+                                                      SheetWriteParam<T> writeParam,
+                                                      String fileName) {
         write(response, Arrays.asList(writeParam), fileName);
     }
 
-    public static <T extends List<SheetWriteParam<? extends BaseRowModel>>> void write(HttpServletResponse response, T writeParams, String fileName) {
+    public static <T extends List<SheetWriteParam<? extends BaseRowModel>>> void write(HttpServletResponse response,
+                                                                                       T writeParams,
+                                                                                       String fileName) {
         Assert.throwIfBlank(fileName, "fileName必传");
         writeParams.forEach(ValidatorUtils::validate);
 
@@ -134,15 +138,14 @@ public class ExcelUtils {
                     Arrays.asList(row.getClass().getDeclaredFields()),
                     field -> field.getAnnotation(ExcelProperty.class) != null);
 
-            excelFields.forEach(field -> {
-                list.add(ReflectUtils.getValue(row, field));
-                Map<String, String> dynamicPropertyMap = row.getDynamicPropertyMap();
-                if (MapUtils.isNotEmpty(dynamicPropertyMap)) {
-                    for (int i = excelFields.size(); i < headList.size(); i++) {
-                        list.add(dynamicPropertyMap.getOrDefault(headList.get(i), ""));
-                    }
+            excelFields.forEach(field -> list.add(ReflectUtils.getValue(row, field)));
+
+            Map<String, String> dynamicPropertyMap = row.getDynamicPropertyMap();
+            if (MapUtils.isNotEmpty(dynamicPropertyMap)) {
+                for (int i = excelFields.size(); i < headList.size(); i++) {
+                    list.add(dynamicPropertyMap.getOrDefault(headList.get(i), ""));
                 }
-            });
+            }
 
             return list;
         });
