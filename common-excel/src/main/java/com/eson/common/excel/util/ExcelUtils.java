@@ -113,6 +113,7 @@ public class ExcelUtils {
                         writerSheetBuilder.registerWriteHandler(mergeStrategy);
                     }
                 }
+
                 WriteSheet writeSheet = writerSheetBuilder.build();
 
                 if (CollectionUtils.isNotEmpty(dataList)) {
