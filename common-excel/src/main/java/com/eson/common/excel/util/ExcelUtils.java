@@ -33,7 +33,7 @@ import com.eson.common.core.util.ReflectUtils;
 import com.eson.common.core.util.ValidatorUtils;
 import com.eson.common.excel.event.BaseExcelListener;
 import com.eson.common.excel.model.BaseRowModel;
-import com.eson.common.excel.param.SheetWriteParam;
+import com.eson.common.excel.param.WriteSheetParam;
 import com.eson.common.function.util.ThrowUtils;
 import com.google.common.collect.Lists;
 
@@ -77,18 +77,18 @@ public class ExcelUtils {
     }
 
     public static <T extends BaseRowModel> void write(HttpServletResponse response,
-                                                      SheetWriteParam<T> writeParam,
+                                                      WriteSheetParam<T> writeParam,
                                                       String fileName) {
         write(response, Arrays.asList(writeParam), fileName);
     }
 
-    public static <T extends List<SheetWriteParam<? extends BaseRowModel>>> void write(HttpServletResponse response,
+    public static <T extends List<WriteSheetParam<? extends BaseRowModel>>> void write(HttpServletResponse response,
                                                                                        T writeParams,
                                                                                        String fileName) {
         Assert.throwIfBlank(fileName, "fileName必传");
         writeParams.forEach(ValidatorUtils::validate);
 
-        List<String> sheetNames = Funs.map(writeParams, SheetWriteParam::getSheetName);
+        List<String> sheetNames = Funs.map(writeParams, WriteSheetParam::getSheetName);
         Set<String> sheetNameSet = new HashSet<>(sheetNames);
         Assert.throwIfTrue(sheetNames.size() != sheetNameSet.size(), "sheetName{}重复", JsonUtils.toJson(sheetNames));
 
@@ -103,7 +103,7 @@ public class ExcelUtils {
 
         try {
             for (int i = 0; i < writeParams.size(); i++) {
-                SheetWriteParam<? extends BaseRowModel> writeParam = writeParams.get(i);
+                WriteSheetParam<? extends BaseRowModel> writeParam = writeParams.get(i);
                 String sheetName = writeParam.getSheetName().replaceAll(SPECIAL_CHAR, "");
                 List<String> headList = writeParam.getHeadList();
                 List<? extends BaseRowModel> dataList = writeParam.getDataList();

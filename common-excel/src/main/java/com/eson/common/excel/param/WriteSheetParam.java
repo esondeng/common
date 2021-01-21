@@ -17,7 +17,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class SheetWriteParam<T extends BaseRowModel> {
+public class WriteSheetParam<T extends BaseRowModel> {
     @NotEmpty(message = "head不能为空")
     List<String> headList;
 
