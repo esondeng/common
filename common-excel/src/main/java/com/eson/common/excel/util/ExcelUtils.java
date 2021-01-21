@@ -24,7 +24,7 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.read.metadata.ReadSheet;
 import com.alibaba.excel.support.ExcelTypeEnum;
 import com.alibaba.excel.write.builder.ExcelWriterSheetBuilder;
-import com.alibaba.excel.write.merge.OnceAbsoluteMergeStrategy;
+import com.alibaba.excel.write.handler.AbstractSheetWriteHandler;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.eson.common.core.util.Assert;
 import com.eson.common.core.util.Funs;
@@ -35,7 +35,6 @@ import com.eson.common.excel.event.BaseExcelListener;
 import com.eson.common.excel.model.BaseRowModel;
 import com.eson.common.excel.param.WriteSheetParam;
 import com.eson.common.function.util.ThrowUtils;
-import com.google.common.collect.Lists;
 
 /**
  * @author dengxiaolin
@@ -109,11 +108,11 @@ public class ExcelUtils {
                 List<? extends BaseRowModel> dataList = writeParam.getDataList();
 
                 ExcelWriterSheetBuilder writerSheetBuilder = EasyExcel.writerSheet(i, sheetName);
-                writerSheetBuilder = writerSheetBuilder.head(Funs.map(headList, head -> Lists.newArrayList(new String[] {head})));
+                writerSheetBuilder = writerSheetBuilder.head(Funs.map(headList, Arrays::asList));
 
-                List<OnceAbsoluteMergeStrategy> mergeStrategyList = writeParam.getMergeStrategyList();
+                List<AbstractSheetWriteHandler> mergeStrategyList = writeParam.getMergeStrategyList();
                 if (CollectionUtils.isNotEmpty(mergeStrategyList)) {
-                    for (OnceAbsoluteMergeStrategy mergeStrategy : mergeStrategyList) {
+                    for (AbstractSheetWriteHandler mergeStrategy : mergeStrategyList) {
                         writerSheetBuilder.registerWriteHandler(mergeStrategy);
                     }
                 }

@@ -5,7 +5,7 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
-import com.alibaba.excel.write.merge.OnceAbsoluteMergeStrategy;
+import com.alibaba.excel.write.handler.AbstractSheetWriteHandler;
 import com.eson.common.excel.model.BaseRowModel;
 
 import lombok.Getter;
@@ -23,7 +23,7 @@ public class WriteSheetParam<T extends BaseRowModel> {
 
     List<T> dataList;
 
-    List<OnceAbsoluteMergeStrategy> mergeStrategyList;
+    List<AbstractSheetWriteHandler> mergeStrategyList;
 
     @NotBlank(message = "sheet name不能为空")
     String sheetName;
