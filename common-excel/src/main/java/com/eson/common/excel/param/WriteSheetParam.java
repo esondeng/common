@@ -19,12 +19,12 @@ import lombok.Setter;
 @Setter
 public class WriteSheetParam<T extends BaseRowModel> {
     @NotEmpty(message = "head不能为空")
-    List<String> headList;
+    private List<String> headList;
 
-    List<T> dataList;
+    private List<T> dataList;
 
-    List<AbstractSheetWriteHandler> mergeStrategyList;
+    private List<AbstractSheetWriteHandler> mergeStrategyList;
 
     @NotBlank(message = "sheet name不能为空")
-    String sheetName;
+    private String sheetName;
 }
