@@ -24,7 +24,7 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.read.metadata.ReadSheet;
 import com.alibaba.excel.support.ExcelTypeEnum;
 import com.alibaba.excel.write.builder.ExcelWriterSheetBuilder;
-import com.alibaba.excel.write.handler.AbstractSheetWriteHandler;
+import com.alibaba.excel.write.handler.WriteHandler;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.eson.common.core.util.Assert;
 import com.eson.common.core.util.Funs;
@@ -110,10 +110,10 @@ public class ExcelUtils {
                 ExcelWriterSheetBuilder writerSheetBuilder = EasyExcel.writerSheet(i, sheetName);
                 writerSheetBuilder = writerSheetBuilder.head(Funs.map(headList, Arrays::asList));
 
-                List<AbstractSheetWriteHandler> mergeStrategyList = writeParam.getMergeStrategyList();
-                if (CollectionUtils.isNotEmpty(mergeStrategyList)) {
-                    for (AbstractSheetWriteHandler mergeStrategy : mergeStrategyList) {
-                        writerSheetBuilder.registerWriteHandler(mergeStrategy);
+                List<WriteHandler> writeHandlers = writeParam.getWriteHandlers();
+                if (CollectionUtils.isNotEmpty(writeHandlers)) {
+                    for (WriteHandler writeHandler : writeHandlers) {
+                        writerSheetBuilder.registerWriteHandler(writeHandler);
                     }
                 }
 
