@@ -13,7 +13,7 @@ import com.eson.common.web.vo.SelectVo;
  */
 public class EnumBaseUtils {
 
-    public <T extends Enum<T> & EnumBase> List<SelectVo> getSelectVos(Class<T> clazz) {
+    public <T extends Enum<T> & EnumBase> List<SelectVo> buildSelectVos(Class<T> clazz) {
         return Funs.map(EnumSet.allOf(clazz), t -> SelectVo.of(t.id(), t.message()));
     }
 }
