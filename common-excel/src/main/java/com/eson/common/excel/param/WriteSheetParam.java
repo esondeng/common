@@ -27,4 +27,14 @@ public class WriteSheetParam<T extends BaseRowModel> {
 
     @NotBlank(message = "sheet name不能为空")
     private String sheetName;
+
+    public static <T extends BaseRowModel> WriteSheetParam<T> of(String sheetName, List<String> headList, List<T> dataList) {
+        WriteSheetParam<T> writeSheetParam = new WriteSheetParam<>();
+        writeSheetParam.setSheetName(sheetName);
+
+        writeSheetParam.setHeadList(headList);
+        writeSheetParam.setDataList(dataList);
+
+        return writeSheetParam;
+    }
 }
