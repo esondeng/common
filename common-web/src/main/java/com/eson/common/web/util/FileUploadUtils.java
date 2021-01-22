@@ -19,13 +19,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FileUploadUtils {
     /**
-     * 获取单个上传的文件,left is file, right is fileName
+     * 获取单个上传的文件
+     * left is file, right is fileName
      */
-    public static Pair<MultipartFile, String> getUploadSingleFilePair(MultipartHttpServletRequest request,
-                                                                      Long sizeLimit,
-                                                                      String sizeErrMsg,
-                                                                      Pattern formatPattern,
-                                                                      String patternErrMsg) {
+    public static Pair<MultipartFile, String> getSingleFilePair(MultipartHttpServletRequest request,
+                                                                Long sizeLimit,
+                                                                String sizeErrMsg,
+                                                                Pattern formatPattern,
+                                                                String patternErrMsg) {
         Map<String, MultipartFile> uploadFileMap = request.getFileMap();
         Assert.throwIfEmpty(uploadFileMap, "上传文件不能为空");
         Assert.throwIfTrue(uploadFileMap.size() > 1, "只能上传一个文件");
