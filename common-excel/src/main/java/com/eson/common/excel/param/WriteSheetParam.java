@@ -27,6 +27,4 @@ public class WriteSheetParam<T extends BaseRowModel> {
     private List<T> dataList;
 
     private List<AbstractSheetWriteHandler> mergeStrategyList;
-
-
 }
