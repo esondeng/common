@@ -27,4 +27,14 @@ public class WriteSheetParam<T extends BaseRowModel> {
     private List<T> dataList;
 
     private List<AbstractSheetWriteHandler> mergeStrategyList;
+
+    public WriteSheetParam() {
+
+    }
+
+    public WriteSheetParam(String sheetName, List<String> headList, List<T> dataList) {
+        this.sheetName = sheetName;
+        this.headList = headList;
+        this.dataList = dataList;
+    }
 }
