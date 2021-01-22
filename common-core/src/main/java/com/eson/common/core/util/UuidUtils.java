@@ -10,7 +10,7 @@ public class UuidUtils {
     public static String genUuid() {
         return UUID.randomUUID()
                 .toString()
-                .replace("-", "")
+                .replaceAll("-", "")
                 .toLowerCase();
     }
 }
