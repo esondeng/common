@@ -5,7 +5,7 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
-import com.alibaba.excel.write.handler.AbstractSheetWriteHandler;
+import com.alibaba.excel.write.handler.WriteHandler;
 import com.eson.common.excel.model.BaseRowModel;
 
 import lombok.Getter;
@@ -26,7 +26,7 @@ public class WriteSheetParam<T extends BaseRowModel> {
 
     private List<T> dataList;
 
-    private List<AbstractSheetWriteHandler> mergeStrategyList;
+    private List<WriteHandler> writeHandlers;
 
     public WriteSheetParam() {
 
