@@ -26,6 +26,7 @@ import com.alibaba.excel.support.ExcelTypeEnum;
 import com.alibaba.excel.write.builder.ExcelWriterSheetBuilder;
 import com.alibaba.excel.write.handler.WriteHandler;
 import com.alibaba.excel.write.metadata.WriteSheet;
+import com.eson.common.core.constants.Constants;
 import com.eson.common.core.util.Assert;
 import com.eson.common.core.util.Funs;
 import com.eson.common.core.util.JsonUtils;
@@ -91,7 +92,7 @@ public class ExcelUtils {
         Set<String> sheetNameSet = new HashSet<>(sheetNames);
         Assert.throwIfTrue(sheetNames.size() != sheetNameSet.size(), "sheetName{}重复", JsonUtils.toJson(sheetNames));
 
-        String name = fileName.replaceAll(SPECIAL_CHAR, "") + ExcelTypeEnum.XLSX.getValue();
+        String name = getFileName(fileName);
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.setHeader("Accept-Ranges", "bytes");
         String fileNameParam = ThrowUtils.execute(() -> URLEncoder.encode(name, "UTF-8"));
@@ -127,6 +128,14 @@ public class ExcelUtils {
         finally {
             excelWriter.finish();
         }
+    }
+
+
+    private static String getFileName(String fileName) {
+        fileName = fileName.replaceAll(SPECIAL_CHAR, "");
+        String[] fileNames = fileName.split(Constants.POINT_SPLITTER);
+
+        return fileNames.length > 1 ? fileNames[0] : fileNames[0] + Constants.POINT + ExcelTypeEnum.XLSX.getValue();
     }
 
     private static <T extends BaseRowModel> List buildRows(List<T> rows, List<String> headList) {

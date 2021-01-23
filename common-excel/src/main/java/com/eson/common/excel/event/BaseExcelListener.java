@@ -61,7 +61,7 @@ public class BaseExcelListener<T extends BaseRowModel> extends AnalysisEventList
                 .forEach(field -> {
                     ExcelProperty excelProperty = field.getAnnotation(ExcelProperty.class);
                     if (excelProperty != null) {
-                        modelProperties.add(field.toString());
+                        modelProperties.add(field.getName());
                     }
                 });
         this.modelProperties = modelProperties;
