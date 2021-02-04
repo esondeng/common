@@ -15,7 +15,7 @@ public class PageQuery {
 
     protected Integer pageSize;
 
-    public void valid() {
+    public void validate() {
         pageNum = pageNum == null || pageNum < 1 ? 1 : pageNum;
         pageSize = pageSize == null || pageSize < 1 ? 20 : pageSize;
     }
