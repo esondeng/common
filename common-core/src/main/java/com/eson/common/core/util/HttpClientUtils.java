@@ -21,14 +21,14 @@ import okhttp3.ResponseBody;
  */
 public class HttpClientUtils {
     private static final OkHttpClient OK_HTTP_CLIENT = new OkHttpClient();
-    private final MediaType JSON_MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
+    private static final MediaType JSON_MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
     private static final String CONTENT_TYPE = "application/json";
 
-    public String get(String url) {
+    public static String get(String url) {
         return get(url, Collections.emptyMap());
     }
 
-    public String get(String url, Map<String, Object> params) {
+    public static String get(String url, Map<String, Object> params) {
         url = UrlUtils.buildUrl(url, params);
         // 创建请求
         Request request = new Request.Builder()
@@ -39,7 +39,7 @@ public class HttpClientUtils {
         return execute(request);
     }
 
-    public String post(String url, String bodyJson) {
+    public static String post(String url, String bodyJson) {
         RequestBody requestBody = RequestBody.create(bodyJson, JSON_MEDIA_TYPE);
 
         // 创建请求
@@ -51,7 +51,7 @@ public class HttpClientUtils {
         return execute(request);
     }
 
-    private String execute(Request request) {
+    private static String execute(Request request) {
         Call call = OK_HTTP_CLIENT.newCall(request);
         Response response = ThrowUtils.execute(call::execute);
 
