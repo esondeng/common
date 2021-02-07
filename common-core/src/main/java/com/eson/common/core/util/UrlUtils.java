@@ -27,8 +27,8 @@ public class UrlUtils {
         return buildUrl(baseUrl, ImmutableMap.of(k1, v1, k2, v2));
     }
 
-    public static String buildUrl(String baseUrl, Map<String, Object> queryParams) {
-        String queryString = buildQueryString(queryParams);
+    public static String buildUrl(String baseUrl, Map<String, Object> paramMap) {
+        String queryString = buildQueryString(paramMap);
         if (StringUtils.isBlank(queryString)) {
             return baseUrl;
         }
@@ -44,13 +44,13 @@ public class UrlUtils {
                 : sb.append(Constants.QUESTION).append(queryString).toString();
     }
 
-    private static String buildQueryString(Map<String, Object> params) {
-        if (MapUtils.isEmpty(params)) {
+    private static String buildQueryString(Map<String, Object> paramMap) {
+        if (MapUtils.isEmpty(paramMap)) {
             return "";
         }
 
         StringBuilder sb = new StringBuilder();
-        params.forEach((key, value) -> {
+        paramMap.forEach((key, value) -> {
             sb.append(key).append(Constants.EQUAL);
 
             if (value != null) {
