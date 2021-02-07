@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.apache.commons.text.StringSubstitutor;
 
-import com.eson.common.core.constants.Constants;
 import com.google.common.collect.ImmutableMap;
 
 import static java.util.stream.Collectors.joining;
@@ -17,16 +16,9 @@ import static java.util.stream.Collectors.joining;
  */
 public class ResourceUtils {
 
-    public static String getResource(String directory, String fileName) {
+    public static String getResource(String filePath) {
         try {
-            if (directory.endsWith(Constants.SLASH)) {
-                fileName = directory + fileName;
-            }
-            else {
-                fileName = directory + Constants.SLASH + fileName;
-            }
-
-            InputStreamReader in = new InputStreamReader(ResourceUtils.class.getResourceAsStream(fileName));
+            InputStreamReader in = new InputStreamReader(ResourceUtils.class.getResourceAsStream(filePath));
             return new BufferedReader(in).lines().collect(joining(" "));
         }
         catch (Exception e) {
