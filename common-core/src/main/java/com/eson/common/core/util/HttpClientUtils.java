@@ -87,7 +87,7 @@ public class HttpClientUtils {
         if (response.isSuccessful()) {
             ResponseBody body = response.body();
             if (body != null) {
-                return ThrowUtils.execute(body::toString);
+                return ThrowUtils.execute(() -> body.string());
             }
             throw new RuntimeException("Http fail, response =" + response.toString());
         }
