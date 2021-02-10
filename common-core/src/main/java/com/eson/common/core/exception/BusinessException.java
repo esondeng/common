@@ -3,10 +3,13 @@ package com.eson.common.core.exception;
 import com.eson.common.core.constants.Constants;
 import com.eson.common.core.util.Strings;
 
+import lombok.Getter;
+
 /**
  * @author dengxiaolin
  * @since 2021/01/05
  */
+@Getter
 public class BusinessException extends RuntimeException {
 
     private int code = Constants.FAILED;
@@ -25,17 +28,10 @@ public class BusinessException extends RuntimeException {
         super(message, cause);
     }
 
-    public int getCode() {
-        return code;
-    }
 
     public BusinessException setCode(int code) {
         this.code = code;
         return this;
-    }
-
-    public String getDetailMsg() {
-        return detailMsg;
     }
 
     public BusinessException setDetailMsg(String detailMsg) {
@@ -46,10 +42,6 @@ public class BusinessException extends RuntimeException {
     public BusinessException setDetailMsg(String format, Object... args) {
         this.detailMsg = Strings.of(format, args);
         return this;
-    }
-
-    public boolean isTrivial() {
-        return trivial;
     }
 
     public BusinessException setTrivial(boolean trivial) {
