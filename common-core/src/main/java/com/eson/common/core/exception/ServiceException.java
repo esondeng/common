@@ -12,8 +12,6 @@ public class ServiceException extends BusinessException {
      */
     private String interfacePath;
 
-    private String errorPlace;
-
     public ServiceException() {
 
     }
@@ -29,15 +27,6 @@ public class ServiceException extends BusinessException {
 
     public ServiceException setInterfacePath(String interfacePath) {
         this.interfacePath = interfacePath;
-        return this;
-    }
-
-    public String getErrorPlace() {
-        return errorPlace;
-    }
-
-    public ServiceException setErrorPlace(String errorPlace) {
-        this.errorPlace = errorPlace;
         return this;
     }
 }
