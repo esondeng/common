@@ -30,17 +30,20 @@ public class TimeUtils {
     public static final String YYYYMMDD = "yyyyMMdd";
     public static final String YYYYMM = "yyyyMM";
     public static final String DATE = "yyyy-MM-dd";
-    public static final String HOUR = "yyyy-MM-dd HH";
+
     public static final String MONTH = "yyyy-MM";
-    public static final String DATE_TIME = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATE_HOUR = "yyyy-MM-dd HH";
     public static final String DATE_MINUTE = "yyyy-MM-dd HH:mm";
+    public static final String DATE_TIME = "yyyy-MM-dd HH:mm:ss";
+
 
     public static final DateTimeFormatter YYYYMMDD_FORMATTER = DateTimeFormatter.ofPattern(YYYYMMDD).withZone(ZONE_ID_CN);
     public static final DateTimeFormatter YYYYMM_FORMATTER = DateTimeFormatter.ofPattern(YYYYMM).withZone(ZONE_ID_CN);
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE).withZone(ZONE_ID_CN);
     public static final DateTimeFormatter MONTH_FORMATTER = DateTimeFormatter.ofPattern(MONTH).withZone(ZONE_ID_CN);
-    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME).withZone(ZONE_ID_CN);
+    public static final DateTimeFormatter DATE_HOUR_FORMATTER = DateTimeFormatter.ofPattern(DATE_HOUR).withZone(ZONE_ID_CN);
     public static final DateTimeFormatter DATE_MINUTE_FORMATTER = DateTimeFormatter.ofPattern(DATE_MINUTE).withZone(ZONE_ID_CN);
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME).withZone(ZONE_ID_CN);
 
     public static ZonedDateTime now() {
         return ZonedDateTime.now(ZONE_ID_CN);
@@ -52,14 +55,6 @@ public class TimeUtils {
 
     public static long currentMilli() {
         return Instant.now().toEpochMilli();
-    }
-
-    public static String formatAsDate(Date date) {
-        return DATE_FORMATTER.format(date.toInstant());
-    }
-
-    public static String formatAsDate(Instant instant) {
-        return DATE_FORMATTER.format(instant);
     }
 
     public static String formatAsYYYYMMDD(Date date) {
@@ -78,20 +73,44 @@ public class TimeUtils {
         return YYYYMM_FORMATTER.format(instant);
     }
 
-    public static String formatAsDateTime(Date date) {
-        return DATE_TIME_FORMATTER.format(date.toInstant());
+    public static String formatAsMonth(Date date) {
+        return MONTH_FORMATTER.format(date.toInstant());
     }
 
-    public static String formatAsDateTime(Instant instant) {
-        return DATE_TIME_FORMATTER.format(instant);
+    public static String formatAsMonth(Instant instant) {
+        return MONTH_FORMATTER.format(instant);
+    }
+
+    public static String formatAsDate(Date date) {
+        return DATE_FORMATTER.format(date.toInstant());
+    }
+
+    public static String formatAsDate(Instant instant) {
+        return DATE_FORMATTER.format(instant);
+    }
+
+    public static String formatAsHour(Date date) {
+        return DATE_HOUR_FORMATTER.format(date.toInstant());
+    }
+
+    public static String formatAsHour(Instant instant) {
+        return DATE_HOUR_FORMATTER.format(instant);
     }
 
     public static String formatAsDateMinute(Date date) {
         return DATE_MINUTE_FORMATTER.format(date.toInstant());
     }
 
-    public static String formatAsMonth(Date date) {
-        return MONTH_FORMATTER.format(date.toInstant());
+    public static String formatAsDateMinute(Instant instant) {
+        return DATE_MINUTE_FORMATTER.format(instant);
+    }
+
+    public static String formatAsDateTime(Date date) {
+        return DATE_TIME_FORMATTER.format(date.toInstant());
+    }
+
+    public static String formatAsDateTime(Instant instant) {
+        return DATE_TIME_FORMATTER.format(instant);
     }
 
     public static ZonedDateTime ofDate(Date date) {
