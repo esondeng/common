@@ -30,6 +30,7 @@ public class TimeUtils {
     public static final String YYYYMMDD = "yyyyMMdd";
     public static final String YYYYMM = "yyyyMM";
     public static final String DATE = "yyyy-MM-dd";
+    public static final String HOUR = "yyyy-MM-dd HH";
     public static final String MONTH = "yyyy-MM";
     public static final String DATE_TIME = "yyyy-MM-dd HH:mm:ss";
     public static final String DATE_MINUTE = "yyyy-MM-dd HH:mm";
