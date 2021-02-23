@@ -113,9 +113,7 @@ public class ExcelUtils {
 
                 List<WriteHandler> writeHandlers = writeParam.getWriteHandlers();
                 if (CollectionUtils.isNotEmpty(writeHandlers)) {
-                    for (WriteHandler writeHandler : writeHandlers) {
-                        writerSheetBuilder.registerWriteHandler(writeHandler);
-                    }
+                    writeHandlers.forEach(writerSheetBuilder::registerWriteHandler);
                 }
 
                 WriteSheet writeSheet = writerSheetBuilder.build();
