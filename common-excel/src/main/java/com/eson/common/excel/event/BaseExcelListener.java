@@ -102,8 +102,11 @@ public class BaseExcelListener<T extends BaseRowModel> extends AnalysisEventList
             }
         }
 
-        rows.add(row);
-        setHasNext(validateRowAndHasNext(row, rows.size()));
+        boolean hasNext = validateRowAndHasNext(row, rows.size() + 1);
+        if (hasNext) {
+            rows.add(row);
+        }
+        setHasNext(hasNext);
     }
 
 
