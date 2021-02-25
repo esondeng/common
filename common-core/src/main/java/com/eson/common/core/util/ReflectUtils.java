@@ -1,15 +1,42 @@
 package com.eson.common.core.util;
 
 import java.lang.reflect.Field;
+import java.util.concurrent.TimeUnit;
+
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 
 /**
  * @author dengxiaolin
  * @since 2021/01/14
  */
 public class ReflectUtils {
+    private static final LoadingCache<FieldCacheKey, Field> fieldCache = CacheBuilder.newBuilder()
+            .expireAfterWrite(24, TimeUnit.HOURS)
+            .maximumSize(2000)
+            .build(new CacheLoader<FieldCacheKey, Field>() {
+                @Override
+                public Field load(FieldCacheKey key) throws Exception {
+                    return getFieldByName(key);
+                }
+            });
 
     public static Field getFieldByName(Object obj, String fieldName) {
-        for (Class<?> superClass = obj.getClass(); superClass != Object.class; superClass = superClass.getSuperclass()) {
+        FieldCacheKey fieldCacheKey = FieldCacheKey.of(obj.getClass(), fieldName);
+        try {
+            return fieldCache.get(fieldCacheKey);
+        }
+        catch (Exception e) {
+            throw new RuntimeException(Strings.of("there is not field named {}", fieldName));
+        }
+    }
+
+    private static Field getFieldByName(FieldCacheKey fieldCacheKey) {
+        Class<?> clazz = fieldCacheKey.getClazz();
+        String fieldName = fieldCacheKey.getFieldName();
+
+        for (Class<?> superClass = clazz; superClass != Object.class; superClass = superClass.getSuperclass()) {
             try {
                 return superClass.getDeclaredField(fieldName);
             }
@@ -59,6 +86,35 @@ public class ReflectUtils {
         }
         catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private static class FieldCacheKey {
+        Class<?> clazz;
+        String fieldName;
+
+        public static FieldCacheKey of(Class clazz, String fieldName) {
+            FieldCacheKey fieldCacheKey = new FieldCacheKey();
+            fieldCacheKey.setClazz(clazz);
+            fieldCacheKey.setFieldName(fieldName);
+
+            return fieldCacheKey;
+        }
+
+        public Class<?> getClazz() {
+            return clazz;
+        }
+
+        public void setClazz(Class<?> clazz) {
+            this.clazz = clazz;
+        }
+
+        public String getFieldName() {
+            return fieldName;
+        }
+
+        public void setFieldName(String fieldName) {
+            this.fieldName = fieldName;
         }
     }
 }
