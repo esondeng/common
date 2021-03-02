@@ -1,6 +1,7 @@
 package com.eson.common.core.util;
 
 import java.lang.reflect.Field;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import com.google.common.cache.CacheBuilder;
@@ -115,6 +116,24 @@ public class ReflectUtils {
 
         public void setFieldName(String fieldName) {
             this.fieldName = fieldName;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            FieldCacheKey that = (FieldCacheKey) o;
+            return Objects.equals(clazz, that.clazz) &&
+                    Objects.equals(fieldName, that.fieldName);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(clazz, fieldName);
         }
     }
 }
