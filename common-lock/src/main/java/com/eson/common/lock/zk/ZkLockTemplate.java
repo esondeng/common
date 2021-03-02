@@ -1,4 +1,4 @@
-package com.eson.common.lock;
+package com.eson.common.lock.zk;
 
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;

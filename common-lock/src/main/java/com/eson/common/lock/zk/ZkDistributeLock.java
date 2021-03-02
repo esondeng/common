@@ -1,4 +1,4 @@
-package com.eson.common.lock;
+package com.eson.common.lock.zk;
 
 import java.util.concurrent.TimeUnit;
 
@@ -6,6 +6,7 @@ import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 
 import com.eson.common.core.util.Assert;
+import com.eson.common.lock.DistributeLock;
 
 /**
  * @author dengxiaolin

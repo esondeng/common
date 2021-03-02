@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
-import com.eson.common.lock.ZkLockTemplate;
+import com.eson.common.lock.zk.ZkLockTemplate;
 
 /**
  * @author dengxiaolin
