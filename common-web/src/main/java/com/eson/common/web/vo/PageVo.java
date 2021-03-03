@@ -15,18 +15,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PageVo<T> {
-
     private int pageNum;
-
-
     private int pageSize;
-
-
     private int total;
-
-
     private int totalPage;
-
 
     private List<T> list;
 

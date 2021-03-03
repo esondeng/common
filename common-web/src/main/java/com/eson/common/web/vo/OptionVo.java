@@ -10,13 +10,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OptionVo {
-
     private Integer id;
-
     private String name;
-
     private boolean selectable;
-
     private boolean selected;
 
     public static OptionVo of(int id, String name, boolean selectable, boolean selected) {
