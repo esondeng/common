@@ -25,7 +25,6 @@ public class ZkLockTemplate {
      * @param <T>      泛型参数
      */
     public <T> T tryLockWithReturn(String basePath, String lockKey, Supplier<T> supplier) {
-
         ZkDistributeLock lock = new ZkDistributeLock(curatorClient, basePath, lockKey);
 
         if (lock.tryLock(1, TimeUnit.MILLISECONDS)) {
