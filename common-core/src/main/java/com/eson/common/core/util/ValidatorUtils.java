@@ -56,14 +56,17 @@ public class ValidatorUtils {
     }
 
     public static boolean isPhone(String phone) {
-        return StringUtils.isNotBlank(phone) && phoneNoPattern.matcher(phone).matches();
+        return StringUtils.isNotBlank(phone)
+                && phoneNoPattern.matcher(phone).matches();
     }
 
     public static boolean isEmail(String email) {
-        return StringUtils.isNotBlank(email) && emailPattern.matcher(email).matches();
+        return StringUtils.isNotBlank(email)
+                && emailPattern.matcher(email).matches();
     }
 
     public static boolean isFuture(Date date) {
-        return Objects.nonNull(date) && date.toInstant().isAfter(TimeUtils.now().toInstant());
+        return Objects.nonNull(date)
+                && date.toInstant().isAfter(TimeUtils.now().toInstant());
     }
 }
