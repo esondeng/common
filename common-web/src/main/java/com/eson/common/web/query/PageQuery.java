@@ -20,13 +20,10 @@ public class PageQuery {
         pageSize = pageSize == null || pageSize < 1 ? 20 : pageSize;
     }
 
+    /**
+     * 请求之前保证先validate
+     */
     public Integer getOffset() {
-        if (null == pageNum || pageSize == null) {
-            return null;
-        }
-        if (pageNum <= 0) {
-            pageNum = 1;
-        }
         return (pageNum - 1) * pageSize;
     }
 
