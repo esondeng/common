@@ -97,6 +97,16 @@ public class JsonUtils {
         }
     }
 
+    /**
+     * xpath方式获取json
+     */
+    public static <T> T getValue(String json, String jsonPath, Class<T> valueClass) {
+        List<T> values = getValues(json, jsonPath, valueClass);
+        Assert.throwIfEmpty(values, jsonPath + " not exist");
+
+        return values.get(0);
+    }
+
     private static JsonNode readTree(String json) {
         try {
             return mapper.readTree(json);
