@@ -57,6 +57,16 @@ public class TimeUtils {
         return Instant.now().toEpochMilli();
     }
 
+    public static String format(Date date, String format) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(format).withZone(ZONE_ID_CN);
+        return dateTimeFormatter.format(date.toInstant());
+    }
+
+    public static String format(Instant instant, String format) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(format).withZone(ZONE_ID_CN);
+        return dateTimeFormatter.format(instant);
+    }
+
     public static String formatAsYYYYMMDD(Date date) {
         return YYYYMMDD_FORMATTER.format(date.toInstant());
     }
