@@ -118,7 +118,6 @@ public class BaseExcelListener<T extends BaseRowModel> extends AnalysisEventList
         return true;
     }
 
-
     @Override
     public void doAfterAllAnalysed(AnalysisContext analysisContext) {
 

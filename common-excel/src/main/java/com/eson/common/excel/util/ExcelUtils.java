@@ -64,7 +64,8 @@ public class ExcelUtils {
                 BaseExcelListener listener = listeners.get(i);
                 readSheets[i] = EasyExcel.readSheet(i)
                         .head(listener.getRowModel())
-                        .registerReadListener(listener).build();
+                        .registerReadListener(listener)
+                        .build();
                 listener.setSheetName(readSheets[i].getSheetName());
             }
 
