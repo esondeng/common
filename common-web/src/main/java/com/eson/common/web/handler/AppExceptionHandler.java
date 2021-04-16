@@ -71,9 +71,14 @@ public class AppExceptionHandler {
     }
 
     private WebResponse<Void> logAndBuildResponse(ServiceException sex) {
-        String message = sex.getMessage() + " detailMsg: " + sex.getDetailMsg()
-                + Constants.NEW_LINE + Constants.TAB
-                + sex.getInterfacePath() + " : " + sex.getExceptionClass();
+        String message = sex.getMessage()
+                + " detailMsg: "
+                + sex.getDetailMsg()
+                + Constants.NEW_LINE
+                + Constants.TAB
+                + sex.getInterfacePath()
+                + " : "
+                + sex.getExceptionClass();
 
         if (sex.isTrivial()) {
             log.warn(message);
