@@ -32,24 +32,20 @@ public class HttpClientUtils {
     }
 
     public static String get(String url, Map<String, Object> params) {
-        url = UrlUtils.buildUrl(url, params);
-        // 创建请求
         Request request = new Request.Builder()
                 .addHeader("Content-Type", JSON_CONTENT_TYPE)
-                .url(url)
+                .url(UrlUtils.buildUrl(url, params))
                 .build();
 
         return execute(request);
     }
 
     public static String get(String url, Map<String, String> headerMap, Map<String, Object> paramMap) {
-        url = UrlUtils.buildUrl(url, paramMap);
         headerMap = headerMap == null ? Collections.emptyMap() : headerMap;
 
-        // 创建请求
         Request request = new Request.Builder()
                 .headers(Headers.of(headerMap))
-                .url(url)
+                .url(UrlUtils.buildUrl(url, paramMap))
                 .build();
 
         return execute(request);
@@ -58,12 +54,12 @@ public class HttpClientUtils {
     public static String post(String url, String bodyJson) {
         RequestBody requestBody = RequestBody.create(bodyJson, JSON_MEDIA_TYPE);
 
-        // 创建请求
         Request request = new Request.Builder()
                 .addHeader("Content-Type", JSON_CONTENT_TYPE)
                 .url(url)
                 .post(requestBody)
                 .build();
+
         return execute(request);
     }
 
@@ -71,12 +67,12 @@ public class HttpClientUtils {
         RequestBody requestBody = RequestBody.create(bodyJson, JSON_MEDIA_TYPE);
         headerMap = headerMap == null ? Collections.emptyMap() : headerMap;
 
-        // 创建请求
         Request request = new Request.Builder()
                 .headers(Headers.of(headerMap))
                 .url(url)
                 .post(requestBody)
                 .build();
+
         return execute(request);
     }
 
