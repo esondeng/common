@@ -87,7 +87,7 @@ public class AppExceptionHandler {
             log.error(message);
         }
 
-        return WebResponse.of(sex.getCode(), sex.getMessage());
+        return WebResponse.of(sex.getCode(), sex.getInterfacePath() + " : " + sex.getExceptionClass() + sex.getMessage());
     }
 
 
