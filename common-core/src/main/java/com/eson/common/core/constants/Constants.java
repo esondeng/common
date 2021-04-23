@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
  */
 public class Constants {
     public static final String NEW_LINE = "\n";
-    public static final String NEW_LINE_SPLITTER = "\\n";
     public static final String TAB = "\t";
     public static final String COLON = ":";
     public static final String SLASH = "/";
