@@ -1,12 +1,13 @@
 package com.eson.common.web.handler;
 
+import java.util.ServiceLoader;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
-import org.springframework.util.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -30,10 +31,22 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AppExceptionHandler {
 
+    private static final ServiceLoader<PreHandler> preHandlers = ServiceLoader.load(PreHandler.class);
+
     @ExceptionHandler
     @ResponseBody
     public WebResponse<Void> handleException(Exception e, HttpServletRequest request) {
+        preHandleException(e, request);
+        return buildWebResponse(e);
+    }
 
+    private void preHandleException(Exception e, HttpServletRequest request) {
+        for (PreHandler preHandler : preHandlers) {
+            preHandler.handle(e, request);
+        }
+    }
+
+    private WebResponse<Void> buildWebResponse(Exception e) {
         String msg;
         if (e instanceof MethodArgumentNotValidException) {
             MethodArgumentNotValidException mex = (MethodArgumentNotValidException) e;
@@ -90,7 +103,6 @@ public class AppExceptionHandler {
         String msg = sex.getInterfacePath() + " : " + sex.getExceptionClass() + " " + sex.getMessage();
         return WebResponse.of(sex.getCode(), msg);
     }
-
 
     private WebResponse<Void> logAndBuildResponse(BusinessException bex) {
         String message = bex.getMessage() + " detailMsg: " + bex.getDetailMsg();
