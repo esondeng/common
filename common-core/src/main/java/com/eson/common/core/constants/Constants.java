@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  * @since 2021/01/07
  */
 public class Constants {
-    public static final String NEW_LINE = System.lineSeparator();
+    public static final String NEW_LINE = "\n";
     public static final String TAB = "\t";
     public static final String COLON = ":";
     public static final String SLASH = "/";
