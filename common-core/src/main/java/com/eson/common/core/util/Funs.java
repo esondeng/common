@@ -12,6 +12,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -140,6 +141,14 @@ public class Funs {
         }
     }
 
+    public static <T> void forEach(T[] array, BiConsumer<Integer, ? super T> action) {
+        Assert.throwIfNull(array, "array required");
+        Assert.throwIfNull(action, "action required");
+
+        Stream.iterate(0, i -> i + 1)
+                .limit(array.length)
+                .forEach(i -> action.accept(i, array[i]));
+    }
 
     public static <T> boolean allMatch(Collection<T> collection, Predicate<? super T> predicate) {
         if (CollectionUtils.isEmpty(collection)) {
