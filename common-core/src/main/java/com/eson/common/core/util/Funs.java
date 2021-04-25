@@ -130,24 +130,24 @@ public class Funs {
     }
 
 
-    public static <T> void forEach(Collection<T> collection, BiConsumer<Integer, ? super T> action) {
+    public static <T> void forEach(Collection<T> collection, BiConsumer<Integer, ? super T> consumer) {
         Assert.throwIfNull(collection, "collection required");
-        Assert.throwIfNull(action, "action required");
+        Assert.throwIfNull(consumer, "action required");
 
         int index = 0;
         for (T element : collection) {
-            action.accept(index, element);
+            consumer.accept(index, element);
             index++;
         }
     }
 
-    public static <T> void forEach(T[] array, BiConsumer<Integer, ? super T> action) {
+    public static <T> void forEach(T[] array, BiConsumer<Integer, ? super T> consumer) {
         Assert.throwIfNull(array, "array required");
-        Assert.throwIfNull(action, "action required");
+        Assert.throwIfNull(consumer, "action required");
 
         Stream.iterate(0, i -> i + 1)
                 .limit(array.length)
-                .forEach(i -> action.accept(i, array[i]));
+                .forEach(i -> consumer.accept(i, array[i]));
     }
 
     public static <T> boolean allMatch(Collection<T> collection, Predicate<? super T> predicate) {
