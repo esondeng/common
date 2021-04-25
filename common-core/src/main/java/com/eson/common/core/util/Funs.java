@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -106,8 +107,7 @@ public class Funs {
     }
 
 
-    public static <T, K> Map<K, List<T>> groupingBy(Collection<T> collection,
-                                                    Function<? super T, ? extends K> classifier) {
+    public static <T, K> Map<K, List<T>> groupingBy(Collection<T> collection, Function<? super T, ? extends K> classifier) {
         if (CollectionUtils.isEmpty(collection)) {
             return Collections.emptyMap();
         }
@@ -126,6 +126,18 @@ public class Funs {
         map.forEach((k, v) -> reverseMap.put(v, k));
 
         return reverseMap;
+    }
+
+
+    public static <T> void forEach(Collection<T> collection, BiConsumer<Integer, ? super T> action) {
+        Assert.throwIfNull(collection, "collection required");
+        Assert.throwIfNull(action, "action required");
+
+        int index = 0;
+        for (T element : collection) {
+            action.accept(index, element);
+            index++;
+        }
     }
 
 
