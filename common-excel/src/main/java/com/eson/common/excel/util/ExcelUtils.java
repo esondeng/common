@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -148,9 +149,9 @@ public class ExcelUtils {
 
             Map<String, String> dynamicPropertyMap = row.getDynamicPropertyMap();
             if (MapUtils.isNotEmpty(dynamicPropertyMap)) {
-                for (int i = excelFields.size(); i < headList.size(); i++) {
-                    list.add(dynamicPropertyMap.getOrDefault(headList.get(i), ""));
-                }
+                Stream.iterate(excelFields.size(), i -> i + 1)
+                        .limit(headList.size())
+                        .forEach(i -> list.add(dynamicPropertyMap.getOrDefault(headList.get(i), "")));
             }
 
             return list;
