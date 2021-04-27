@@ -102,8 +102,6 @@ public class JsonUtils {
      */
     public static <T> T getValue(String json, String jsonPath, Class<T> valueClass) {
         List<T> values = getValues(json, jsonPath, valueClass);
-        Assert.throwIfEmpty(values, jsonPath + " not exist");
-
         return values.get(0);
     }
 
