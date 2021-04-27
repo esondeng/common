@@ -34,9 +34,6 @@ public class FileUploadUtils {
         Map.Entry<String, MultipartFile> uploadEntry = uploadFileMap.entrySet().iterator().next();
         MultipartFile uploadFile = uploadEntry.getValue();
 
-        Assert.throwIfNull(uploadFile, "上传文件不能为空");
-        log.info("文件大小:" + uploadFile.getSize());
-
         if (sizeLimit != null) {
             sizeErrMsg = StringUtils.isBlank(sizeErrMsg) ? "上传文件过大!" : sizeErrMsg;
             Assert.throwIfTrue(uploadFile.getSize() > sizeLimit, sizeErrMsg);
