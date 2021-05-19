@@ -4,11 +4,17 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * @author dengxiaolin
  * @since 2021/01/05
  */
 public class IpUtils {
+
+    private static final String UNKNOWN = "unknown";
 
     public static String getLocalIp() {
         try {
@@ -31,5 +37,25 @@ public class IpUtils {
         }
 
         return "127.0.0.1";
+    }
+
+    public static String getRemoteIp(HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for");
+        if (StringUtils.isBlank(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (StringUtils.isBlank(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (StringUtils.isBlank(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_CLIENT_IP");
+        }
+        if (StringUtils.isBlank(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+        }
+        if (StringUtils.isBlank(ip) || UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        return ip;
     }
 }
