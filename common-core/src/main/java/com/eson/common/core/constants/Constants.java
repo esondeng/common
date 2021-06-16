@@ -18,6 +18,9 @@ public class Constants {
     public static final String AND = "&";
     public static final String EQUAL = "=";
     public static final String UTF8 = "UTF-8";
+    public static final String MIDDLE_LINE = "-";
+    public static final String EMPTY_STRING = "";
+
 
     private static final Pattern DOCUMENT_PATTERN = Pattern.compile(".*\\.(pdf|pptx|docx|ppt|doc|xls|xlsx|zip)$");
 

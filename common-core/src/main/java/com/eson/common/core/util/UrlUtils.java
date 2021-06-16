@@ -59,10 +59,11 @@ public class UrlUtils {
                     sb.append(strValue).append(Constants.AND);
                 }
                 catch (UnsupportedEncodingException e) {
-                    log.warn("Cannot encode {} due to {}", value.toString(), e.getMessage(), e);
+                    log.warn("Cannot encode {} due to {}", value, e.getMessage(), e);
                 }
             }
         });
+
         return sb.substring(0, sb.length() - 1);
     }
 }

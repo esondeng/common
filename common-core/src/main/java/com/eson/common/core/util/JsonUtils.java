@@ -86,6 +86,14 @@ public class JsonUtils {
     /**
      * xpath方式获取json
      */
+    public static <T> T getValue(String json, String jsonPath, Class<T> valueClass) {
+        List<T> values = getValues(json, jsonPath, valueClass);
+        return values.get(0);
+    }
+
+    /**
+     * xpath方式获取json
+     */
     public static <T> List<T> getValues(String json, String jsonPath, Class<T> valueClass) {
         try {
             JsonNode node = mapper.readTree(json);
@@ -95,14 +103,6 @@ public class JsonUtils {
         catch (IOException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
-    }
-
-    /**
-     * xpath方式获取json
-     */
-    public static <T> T getValue(String json, String jsonPath, Class<T> valueClass) {
-        List<T> values = getValues(json, jsonPath, valueClass);
-        return values.get(0);
     }
 
     private static JsonNode readTree(String json) {
