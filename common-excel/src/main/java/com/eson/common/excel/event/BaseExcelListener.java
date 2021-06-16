@@ -30,8 +30,10 @@ public class BaseExcelListener<T extends BaseRowModel> extends AnalysisEventList
     private List<BaseRowModel> rows = new ArrayList<>();
 
     private Class<T> rowModel;
+
     private List<String> headList;
     private List<String> modelProperties;
+    private boolean hasDynamicProperties;
 
     private String sheetName;
 
@@ -52,6 +54,8 @@ public class BaseExcelListener<T extends BaseRowModel> extends AnalysisEventList
     public BaseExcelListener(Class<T> rowModel, List<String> headList) {
         this.rowModel = rowModel;
         fillModelProperties(rowModel);
+        hasDynamicProperties = CollectionUtils.isNotEmpty(headList)
+                && headList.size() > modelProperties.size();
         this.headList = headList;
     }
 
@@ -84,10 +88,6 @@ public class BaseExcelListener<T extends BaseRowModel> extends AnalysisEventList
 
     @Override
     public void invoke(T row, AnalysisContext analysisContext) {
-        // 有动态属性
-        boolean hasDynamicProperties = CollectionUtils.isNotEmpty(headList)
-                && headList.size() > modelProperties.size();
-
         if (hasDynamicProperties) {
             Map<String, String> dynamicPropertyMap = new HashMap<>(16);
             row.setDynamicPropertyMap(dynamicPropertyMap);

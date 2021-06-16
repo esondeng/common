@@ -62,7 +62,7 @@ public class ExcelUtils {
         try {
             ReadSheet[] readSheets = new ReadSheet[listeners.size()];
             for (int i = 0; i < listeners.size(); i++) {
-                BaseExcelListener listener = listeners.get(i);
+                BaseExcelListener<? extends BaseRowModel> listener = listeners.get(i);
                 readSheets[i] = EasyExcel.readSheet(i)
                         .head(listener.getRowModel())
                         .registerReadListener(listener)
