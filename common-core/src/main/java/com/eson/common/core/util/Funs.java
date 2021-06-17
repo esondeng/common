@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
 
 /**
  * @author dengxiaolin
@@ -119,7 +120,7 @@ public class Funs {
     }
 
     public static <K, V> Map<V, K> reverseMap(Map<K, V> map) {
-        if (map == null || map.isEmpty()) {
+        if (MapUtils.isEmpty(map)) {
             return Collections.emptyMap();
         }
 
