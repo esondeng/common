@@ -78,16 +78,16 @@ public class HttpClientUtils {
 
     private static String execute(Request request) {
         Call call = OK_HTTP_CLIENT.newCall(request);
-        Response response = ThrowUtils.execute(call::execute);
+        Response response = ThrowUtils.submit(call::execute);
 
         if (response.isSuccessful()) {
             ResponseBody body = response.body();
             if (body != null) {
-                return ThrowUtils.execute(body::string);
+                return ThrowUtils.submit(body::string);
             }
-            throw new RuntimeException("Http fail, response =" + response.toString());
+            throw new RuntimeException("Http fail, response =" + response);
         }
 
-        throw new RuntimeException("Http fail, response = " + response.toString());
+        throw new RuntimeException("Http fail, response = " + response);
     }
 }

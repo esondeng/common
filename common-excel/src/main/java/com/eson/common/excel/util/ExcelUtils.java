@@ -97,10 +97,10 @@ public class ExcelUtils {
         String name = getFileName(fileName);
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.setHeader("Accept-Ranges", "bytes");
-        String fileNameParam = ThrowUtils.execute(() -> URLEncoder.encode(name, "UTF-8"));
+        String fileNameParam = ThrowUtils.submit(() -> URLEncoder.encode(name, "UTF-8"));
         response.setHeader("Content-Disposition", "attachment; filename=" + fileNameParam);
 
-        ServletOutputStream outputStream = ThrowUtils.execute(response::getOutputStream);
+        ServletOutputStream outputStream = ThrowUtils.submit(response::getOutputStream);
         ExcelWriter excelWriter = EasyExcel.write(outputStream).build();
 
         try {

@@ -9,7 +9,7 @@ import com.eson.common.function.ThrowRunnable;
  */
 public class ThrowUtils {
 
-    public static <T> T execute(ThrowCallable<T> callable) {
+    public static <T> T submit(ThrowCallable<T> callable) {
         try {
             return callable.call();
         }
