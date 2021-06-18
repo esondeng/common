@@ -8,15 +8,17 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import com.eson.common.core.exception.BusinessException;
 import com.eson.common.lock.DistributeLock;
+import com.eson.common.lock.LockTemplate;
 
 /**
  * @author dengxiaolin
  * @since 2021/06/17
  */
-public class RedisLockTemplate {
+public class RedisLockTemplate implements LockTemplate {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
+    @Override
     public <T> T tryLockWithReturn(String key, Supplier<T> supplier) {
         DistributeLock lock = new RedisDistributeLock(redisTemplate, key);
 
@@ -33,6 +35,7 @@ public class RedisLockTemplate {
         }
     }
 
+    @Override
     public void tryLock(String key, Runnable runnable) {
         DistributeLock lock = new RedisDistributeLock(redisTemplate, key);
 
@@ -49,6 +52,7 @@ public class RedisLockTemplate {
         }
     }
 
+    @Override
     public <T> T lockWithReturn(String key, Supplier<T> supplier) {
         DistributeLock lock = new RedisDistributeLock(redisTemplate, key);
 
@@ -61,6 +65,7 @@ public class RedisLockTemplate {
         }
     }
 
+    @Override
     public void lock(String key, Runnable runnable) {
         DistributeLock lock = new RedisDistributeLock(redisTemplate, key);
 

@@ -5,26 +5,27 @@ import java.util.function.Supplier;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.eson.common.core.exception.BusinessException;
+import com.eson.common.lock.LockTemplate;
 
 /**
  * @author dengxiaolin
  * @since 2021/03/01
  */
-public class ZkLockTemplate {
+public class ZkLockTemplate implements LockTemplate {
     @Autowired
     private CuratorFramework curatorClient;
 
     /**
-     * 带返回值执行
-     *
-     * @param basePath 推荐使用 "/" + appKey + "/dist_lock/"
-     * @param lockKey  锁定关键字
-     * @param supplier 返回值函数
-     * @param <T>      泛型参数
+     * 推荐使用 "/" + appKey + "/dist_lock/"
      */
-    public <T> T tryLockWithReturn(String basePath, String lockKey, Supplier<T> supplier) {
+    @Value("${zklock.base.path")
+    private String basePath;
+
+    @Override
+    public <T> T tryLockWithReturn(String lockKey, Supplier<T> supplier) {
         ZkDistributeLock lock = new ZkDistributeLock(curatorClient, basePath, lockKey);
 
         if (lock.tryLock(1, TimeUnit.MILLISECONDS)) {
@@ -40,14 +41,8 @@ public class ZkLockTemplate {
         }
     }
 
-    /**
-     * 不带返回值执行
-     *
-     * @param basePath 推荐使用 "/" + appKey + "/dist_lock/"
-     * @param lockKey  锁定关键字
-     * @param runnable 运行函数
-     */
-    public void tryLock(String basePath, String lockKey, Runnable runnable) {
+    @Override
+    public void tryLock(String lockKey, Runnable runnable) {
         ZkDistributeLock lock = new ZkDistributeLock(curatorClient, basePath, lockKey);
 
         if (lock.tryLock(1, TimeUnit.MILLISECONDS)) {
@@ -63,7 +58,8 @@ public class ZkLockTemplate {
         }
     }
 
-    public <T> T lockWithReturn(String basePath, String lockKey, Supplier<T> supplier) {
+    @Override
+    public <T> T lockWithReturn(String lockKey, Supplier<T> supplier) {
         ZkDistributeLock lock = new ZkDistributeLock(curatorClient, basePath, lockKey);
 
         lock.lock();
@@ -75,7 +71,8 @@ public class ZkLockTemplate {
         }
     }
 
-    public void lock(String basePath, String lockKey, Runnable runnable) {
+    @Override
+    public void lock(String lockKey, Runnable runnable) {
         ZkDistributeLock lock = new ZkDistributeLock(curatorClient, basePath, lockKey);
 
         lock.lock();
