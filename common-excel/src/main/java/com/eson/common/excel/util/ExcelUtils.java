@@ -57,7 +57,7 @@ public class ExcelUtils {
                 .doReadSync();
     }
 
-    public static <T extends List<BaseExcelListener<? extends BaseRowModel>>> void asyncRead(InputStream inputStream, T listeners) {
+    public static void asyncRead(InputStream inputStream, List<BaseExcelListener<? extends BaseRowModel>> listeners) {
         ExcelReader excelReader = EasyExcel.read(inputStream).build();
         try {
             ReadSheet[] readSheets = new ReadSheet[listeners.size()];
@@ -78,15 +78,15 @@ public class ExcelUtils {
         }
     }
 
-    public static <T extends BaseRowModel> void write(HttpServletResponse response,
-                                                      WriteSheetParam<T> writeParam,
-                                                      String fileName) {
+    public static void write(HttpServletResponse response,
+                             WriteSheetParam<? extends BaseRowModel> writeParam,
+                             String fileName) {
         write(response, Arrays.asList(writeParam), fileName);
     }
 
-    public static <T extends List<WriteSheetParam<? extends BaseRowModel>>> void write(HttpServletResponse response,
-                                                                                       T writeParams,
-                                                                                       String fileName) {
+    public static void write(HttpServletResponse response,
+                             List<WriteSheetParam<? extends BaseRowModel>> writeParams,
+                             String fileName) {
         Assert.throwIfBlank(fileName, "fileName必传");
         writeParams.forEach(ValidatorUtils::validate);
 
@@ -138,7 +138,7 @@ public class ExcelUtils {
         return fileNames.length > 1 ? fileNames[0] : fileNames[0] + Constants.POINT + ExcelTypeEnum.XLSX.getValue();
     }
 
-    private static <T extends BaseRowModel> List buildRows(List<T> rows, List<String> headList) {
+    private static List<?> buildRows(List<? extends BaseRowModel> rows, List<String> headList) {
         return Funs.map(rows, row -> {
             List<Object> list = new ArrayList<>();
             List<Field> excelFields = Funs.filter(
