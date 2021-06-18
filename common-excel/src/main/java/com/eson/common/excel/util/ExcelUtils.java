@@ -151,7 +151,7 @@ public class ExcelUtils {
             if (MapUtils.isNotEmpty(dynamicPropertyMap)) {
                 Stream.iterate(excelFields.size(), i -> i + 1)
                         .limit(headList.size() - excelFields.size())
-                        .forEach(i -> list.add(dynamicPropertyMap.getOrDefault(headList.get(i), "")));
+                        .forEach(i -> list.add(dynamicPropertyMap.getOrDefault(headList.get(i), Constants.EMPTY_STRING)));
             }
 
             return list;
