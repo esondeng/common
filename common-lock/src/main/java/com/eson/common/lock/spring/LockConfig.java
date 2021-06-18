@@ -16,7 +16,7 @@ import com.eson.common.lock.zk.ZkLockTemplate;
  */
 @Configuration
 @PropertySource("classpath:config/${spring.profiles.active:dev}/zk.properties")
-public class ZkLockConfig {
+public class LockConfig {
 
     @Value("${zk_host}")
     private String zkHost;
