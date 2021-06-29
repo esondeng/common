@@ -52,35 +52,49 @@ public class AppExceptionHandler {
             MethodArgumentNotValidException mex = (MethodArgumentNotValidException) e;
             FieldError error = mex.getBindingResult().getFieldErrors().get(0);
             msg = error == null ? "输入参数错误" : error.getDefaultMessage();
+            log.error(msg);
             return WebResponse.fail(msg);
         }
-        else if (e instanceof ConstraintViolationException) {
+
+        if (e instanceof ConstraintViolationException) {
             ConstraintViolationException cve = (ConstraintViolationException) e;
             Set<ConstraintViolation<?>> violations = cve.getConstraintViolations();
             msg = CollectionUtils.isEmpty(violations) ? cve.getMessage() : (violations.iterator().next()).getMessage();
+            log.error(msg);
             return WebResponse.fail(msg);
         }
-        else if (e instanceof MissingServletRequestParameterException) {
-            return WebResponse.fail(e.getMessage());
+
+        if (e instanceof MissingServletRequestParameterException) {
+            msg = e.getMessage();
+            log.error(msg);
+            return WebResponse.fail(msg);
         }
-        else if (e instanceof MethodArgumentTypeMismatchException) {
+
+        if (e instanceof MethodArgumentTypeMismatchException) {
             MethodArgumentTypeMismatchException mex = (MethodArgumentTypeMismatchException) e;
-            return WebResponse.fail(mex.getParameter() + "参数类型错误");
+            msg = mex.getParameter() + "参数类型错误";
+            return WebResponse.fail(msg);
         }
-        else if (e instanceof IllegalArgumentException) {
-            return WebResponse.fail(e.getMessage());
+
+        if (e instanceof IllegalArgumentException) {
+            msg = e.getMessage();
+            log.error(msg);
+            return WebResponse.fail(msg);
         }
-        else if (e instanceof ServiceException) {
+
+        if (e instanceof ServiceException) {
             ServiceException sex = (ServiceException) e;
             return logAndBuildResponse(sex);
         }
-        else if (e instanceof BusinessException) {
+
+        if (e instanceof BusinessException) {
             BusinessException bex = (BusinessException) e;
             return logAndBuildResponse(bex);
         }
-        else {
-            return WebResponse.fail("系统服务异常，请稍后重试");
-        }
+
+        log.error(e.getMessage());
+        return WebResponse.fail("系统服务异常，请稍后重试");
+
     }
 
     private WebResponse<Void> logAndBuildResponse(ServiceException sex) {
